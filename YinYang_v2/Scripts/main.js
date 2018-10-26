@@ -6,88 +6,86 @@
         console.log('scrolling down');
     }
 });
-(function () {
-    // initializes touch and scroll events
-    var supportTouch = $.support.touch,
-        scrollEvent = "touchmove scroll",
-        touchStartEvent = supportTouch ? "touchstart" : "mousedown",
-        touchStopEvent = supportTouch ? "touchend" : "mouseup",
-        touchMoveEvent = supportTouch ? "touchmove" : "mousemove";
-
-    // handles swipeup and swipedown
-    $.event.special.swipeupdown = {
-        setup: function () {
-            var thisObject = this;
-            var $this = $(thisObject);
-
-            $this.bind(touchStartEvent, function (event) {
-                var data = event.originalEvent.touches ?
-                    event.originalEvent.touches[0] :
-                    event,
-                    start = {
-                        time: (new Date).getTime(),
-                        coords: [data.pageX, data.pageY],
-                        origin: $(event.target)
-                    },
-                    stop;
-
-                function moveHandler(event) {
-                    if (!start) {
-                        return;
-                    }
-
-                    var data = event.originalEvent.touches ?
-                        event.originalEvent.touches[0] :
-                        event;
-                    stop = {
-                        time: (new Date).getTime(),
-                        coords: [data.pageX, data.pageY]
-                    };
-
-                    // prevent scrolling
-                    if (Math.abs(start.coords[1] - stop.coords[1]) > 10) {
-                        event.preventDefault();
-                    }
-                }
-
-                $this
-                    .bind(touchMoveEvent, moveHandler)
-                    .one(touchStopEvent, function (event) {
-                        $this.unbind(touchMoveEvent, moveHandler);
-                        if (start && stop) {
-                            if (stop.time - start.time < 1000 &&
-                                Math.abs(start.coords[1] - stop.coords[1]) > 30 &&
-                                Math.abs(start.coords[0] - stop.coords[0]) < 75) {
-                                start.origin
-                                    .trigger("swipeupdown")
-                                    .trigger(start.coords[1] > stop.coords[1] ? "swipeup" : "swipedown");
-                            }
-                        }
-                        start = stop = undefined;
-                    });
-            });
-        }
-    };
-
-    //Adds the events to the jQuery events special collection
-    $.each({
-        swipedown: "swipeupdown",
-        swipeup: "swipeupdown"
-    }, function (event, sourceEvent) {
-        $.event.special[event] = {
-            setup: function () {
-                $(this).bind(sourceEvent, $.noop);
+// credit: http://www.javascriptkit.com/javatutors/touchevents2.shtml
+function swipedetect(el, callback){
+  
+    var touchsurface = el,
+    swipedir,
+    startX,
+    startY,
+    distX,
+    distY,
+    threshold = 150, //required min distance traveled to be considered swipe
+    restraint = 100, // maximum distance allowed at the same time in perpendicular direction
+    allowedTime = 300, // maximum time allowed to travel that distance
+    elapsedTime,
+    startTime,
+    handleswipe = callback || function(swipedir){}
+  
+    touchsurface.addEventListener('touchstart', function(e){
+        var touchobj = e.changedTouches[0]
+        swipedir = 'none'
+        dist = 0
+        startX = touchobj.pageX
+        startY = touchobj.pageY
+        startTime = new Date().getTime() // record time when finger first makes contact with surface
+        e.preventDefault()
+    }, false)
+  
+    touchsurface.addEventListener('touchmove', function(e){
+        e.preventDefault() // prevent scrolling when inside DIV
+    }, false)
+  
+    touchsurface.addEventListener('touchend', function(e){
+        var touchobj = e.changedTouches[0]
+        distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
+        distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
+        elapsedTime = new Date().getTime() - startTime // get time elapsed
+        if (elapsedTime <= allowedTime){ // first condition for awipe met
+            if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
+                swipedir = (distX < 0)? 'left' : 'right' // if dist traveled is negative, it indicates left swipe
             }
-        };
+            else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
+                swipedir = (distY < 0)? 'up' : 'down' // if dist traveled is negative, it indicates up swipe
+            }
+        }
+        handleswipe(swipedir)
+        e.preventDefault()
+    }, false)
+}
+  
+//USAGE:
+
+var el = document.getElementsByClassName('portfolio--info-box');
+
+var listNav = document.getElementsByClassName('navigation__item');
+$.each(el, function (i, item) {
+    swipedetect(item, function (swipedir) {
+        // swipedir contains either "none", "left", "right", "top", or "down"
+        if (swipedir == 'up') {
+            var id = $(item).data('key') + 1;
+            var id_click = "#navigation__item--" + id;
+            $(id_click).trigger('click');
+        }
+        if (swipedir == 'down') {
+            var id = $(item).data('key') - 1;
+            var id_click = "#navigation__item--" + id;
+            $(id_click).trigger('click');
+        }
+
     });
+});
+//swipedetect(el, function(swipedir){
+//    // swipedir contains either "none", "left", "right", "top", or "down"
+//    alert("abc");
+//});
 
-})();
-
-$('body').on('swipedown', function () { alert("swipedown.."); });
-$('body').on('swipeup', function () { alert("swipeup.."); });
 
 $(document).ready(function () {
     setTimeout(function () {
         $('.yy-wrapper').fadeOut()
-    }, 3000);
+    }, 500);
 });
+$('.carousel').carousel({
+    interval: false
+}); 
