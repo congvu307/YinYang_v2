@@ -3110,19 +3110,22 @@ a {
         }
 
             a:hover svg {
-                fill: red
+                fill: #fff
             }
 
             a:hover .circle-border {
-                border-color: red
+                border-color: #fff;
+                box-shadow:2px 2px 2px #fff;
             }
 
             a:hover .b-line, a:hover .b-post, a:hover .round-shape {
-                background-color: red
+                background-color: #fff;
+                box-shadow: 2px 2px 2px #fff;
             }
 
             a:hover:active {
-                color: #2b2b2b
+                color: #2b2b2b;
+                text-shadow:2px 2px 2px #fff;
             }
 
 div {
@@ -4502,6 +4505,7 @@ textarea {
 }
 
 .arrow-circle.is-opened .section--home__figure--detail--desc--float--left {
+    transition:ease 0.5s;
     opacity: 1
 }
 
@@ -4957,7 +4961,6 @@ textarea {
 }
 
     .portfolio--info--view-case:hover p, .portfolio--info--view-case:hover span {
-        color: red !important
     }
 
     .portfolio--info--view-case .b-line {

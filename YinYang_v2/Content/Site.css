@@ -204,9 +204,10 @@ a:hover, .dropdown-menu--list--item:hover {
     box-shadow:2px 2px 2px #000000;
 }
 .portfolio--info--view-case {
-    margin-top:80vh;
-    right:40%;
     opacity:0.8;
+    right:5%;
+    margin:0;
+    top:90%;
     width:120px;
 }
 .service--discription {
@@ -269,9 +270,15 @@ img.center {
         box-shadow: 2px 2px 2px rgba(0, 0, 0,1);
         text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
     }
-.portfolio--info--view-case .circle-border{
-    background-color:#808080;
-}
+        .b-line{
+            transition:ease 0.5s;
+        }
+        .portfolio--info--view-case .circle-border {
+            transition: ease 0.5s;
+        }
+    .portfolio--info--view-case:hover .circle-border {
+        background-color:#808080;
+    }
 #service--03 {
     background-image: url('images/service_3.png');
     background-size:cover;

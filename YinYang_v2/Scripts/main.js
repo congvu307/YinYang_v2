@@ -84,7 +84,7 @@ $.each(el, function (i, item) {
 $(document).ready(function () {
     setTimeout(function () {
         $('.yy-wrapper').fadeOut()
-    }, 4000);
+    }, 400);
 });
 $('.carousel').carousel({
     interval: false
