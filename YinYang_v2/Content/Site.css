@@ -238,7 +238,7 @@ img.center {
         padding-left: 7%;
     }
 #service--02 {
-    background-image: url('images/BG DEsign-01.png');
+    background-image: url('images/service_1.png');
     background-size:cover;
 }
 .service--header h1{
@@ -255,17 +255,13 @@ img.center {
     font-size:14px !important;
     font-weight:600;
 }
-@media screen and (max-width:992px){
-    .service--header{
-        background-color:rgba(255, 255, 255, 0.7);
-    }
-}
-.left-nav p {
+
+/*.left-nav p {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.90);
-}
-.left-nav--portfolio .left-nav__mask--left:after, .left-nav--portfolio .left-nav__mask--right:after, .left-nav--portfolio .navigation__item:before, .left-nav--portfolio .left-nav__mask--left:after, .left-nav--portfolio .left-nav__mask--right:after, .left-nav--portfolio .navigation__item:before {
+}*/
+/*.left-nav--portfolio .left-nav__mask--left:after, .left-nav--portfolio .left-nav__mask--right:after, .left-nav--portfolio .navigation__item:before, .left-nav--portfolio .left-nav__mask--left:after, .left-nav--portfolio .left-nav__mask--right:after, .left-nav--portfolio .navigation__item:before {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.90);
-}
+}*/
 .portfolio--info--view-case{
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.90);
 }
@@ -277,6 +273,22 @@ img.center {
     background-color:#808080;
 }
 #service--03 {
-    background-image: url('images/BG Program-01.png');
+    background-image: url('images/service_3.png');
     background-size:cover;
+}
+#service--04 {
+    background-image: url('images/service_2.png');
+    background-size: cover;
+}
+
+#service--02, #service--03, #service--04 {
+    color: white;
+}
+@media screen and (max-width:992px) {
+    .service--header {
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+    #service--02, #service--03, #service--04{
+        color:#000;
+    }
 }
