@@ -89,3 +89,8 @@ $(document).ready(function () {
 $('.carousel').carousel({
     interval: false
 }); 
+function goToDropdown(item) {
+    $('.dropdown-menu').removeClass('dropdown-menu__active');
+    var id_click = "#navigation__item--" + $(item).data('key');
+    $(id_click).trigger('click');
+}

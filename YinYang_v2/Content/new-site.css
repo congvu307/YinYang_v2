@@ -393,7 +393,7 @@ header {
     }
 
     .dropdown-menu--list--item:hover a {
-        color: red;
+        color: #808080;
         transition: color .3s
     }
 }
@@ -3443,8 +3443,8 @@ textarea {
     }
 
     .btn:hover {
-        border: 1px solid red;
-        background-color: red
+        border: 1px solid #b0b0b0;
+        background: #b0b0b0;
     }
 
         .btn.active, .btn:hover, .btn:hover:active {
@@ -3453,8 +3453,8 @@ textarea {
         }
 
             .btn.active, .btn:hover:active {
-                border: 1px solid #393738;
-                background: #393738
+                border: 1px solid #b0b0b0;
+                background: #b0b0b0;
             }
 
     .btn:after {
